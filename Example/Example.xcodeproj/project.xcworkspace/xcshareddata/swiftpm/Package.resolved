@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWSwiftUI_List",
       "state" : {
-        "revision" : "10c01f5c67ccc5806667964d17233cdca752b993",
-        "version" : "0.5.0"
+        "revision" : "39d983a3e9f3f7ccbc3f35061133cce5ae2fcff1",
+        "version" : "0.5.1"
       }
     },
     {

@@ -11,25 +11,21 @@ import WWSwiftUI_MultiDatePicker
 // MARK: - ListDataSource
 extension WWSwiftUI {
     
-    class ListDataSource<Cell: CellRepresentable>: ObservableObject {
+    class ListDataSource<Cell>: ObservableObject where Cell: CellRepresentable {
         
         @Published var parent: List<Cell>?
         @Published var items: [Cell.Item]
+        @Published var leadingConfigures: [SwipeButtonConfigure]
         @Published var trailingConfigures: [SwipeButtonConfigure]
         
-        init(items: [Cell.Item], trailingConfigures: [SwipeButtonConfigure]) {
+        /// 初始化
+        /// - Parameters:
+        ///   - items: 內容項目
+        init(items: [Cell.Item]) {
+            self.parent = nil
             self.items = items
-            self.trailingConfigures = trailingConfigures
+            self.leadingConfigures = []
+            self.trailingConfigures = []
         }
-    }
-}
-
-// MARK: - ListDataSource
-extension WWSwiftUI.ListDataSource {
-    
-    /// 更新項目內容
-    /// - Parameter newItems: [Item]
-    func updateItems(_ newItems: [Cell.Item]) {
-        items = newItems
     }
 }

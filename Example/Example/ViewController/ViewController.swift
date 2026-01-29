@@ -8,8 +8,9 @@
 import UIKit
 import WWSwiftUI_MultiDatePicker
 import WWSwiftUI_List
+import SwiftUICore
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     private enum TrailingSwipeType: Int {
         case delete
@@ -26,34 +27,40 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let configures: [WWSwiftUI.SwipeButtonConfigure] = [
-            .init(type: TrailingSwipeType.delete.rawValue, title: "刪除", role: .destructive, tintColor: .red),
-            .init(type: TrailingSwipeType.edit.rawValue, title: "編輯", role: .none, tintColor: .blue)
+            .init(type: TrailingSwipeType.delete.rawValue, title: "Delete", role: .destructive, tintColor: .red),
+            .init(type: TrailingSwipeType.edit.rawValue, title: "Edit", role: .none, tintColor: .blue)
         ]
         
-        list = WWSwiftUI.List(items: items, trailingConfigures: configures) { CellViewUI() }
-        list.delegate = self
+        list = WWSwiftUI.List(items: items) { CellViewUI() }
         list.move(toParent: self, on: view)
+        list.delegate = self
+        list.leadingConfigures(configures)
         
         items = [
-            .init(title: "預覽標題1", detail: "預覽內容1"),
-            .init(title: "預覽標題2", detail: "預覽內容2")
+            .init(title: "Title - 1", detail: "Detail - 1"),
+            .init(title: "Title - 2", detail: "Detail - 2")
         ]
     }
     
     @IBAction func refreashItem(_ sender: UIBarButtonItem) {
         
         let item: CellItem = .init(
-            title: "9款吉伊卡哇週邊商品及2024聯名新品精選！9款吉伊卡哇週邊商品及2024聯名新品精選！9款吉伊卡哇週邊商品及2024聯名新品精選！",
-            detail: "日本漫畫家ナガノ創作的漫畫「吉伊卡哇/ちいかわ」伴隨電視動畫推出後，人氣與知名度又大大增加，雖然台灣還沒有電視台正式引進，但許多喜愛日本流行可愛文化的人，也都已經認識「吉伊卡哇/ちいかわ」甚至被圈粉，以下就精選9款日本開賣的吉伊卡哇週邊商品及2024年聯名新品，如果剛好去旅遊的，可以找看看。(NEWii官網)")
+            title: "SwiftUI - \(Date.now)",
+            detail: "SwiftUI helps you build great-looking apps across all Apple platforms with the power of Swift — and surprisingly little code. You can bring even better experiences to everyone, on any Apple device, using just one set of tools and APIs.")
        
-        items.append(item)
+        list.appendItem(with: item)
     }
 }
 
 // MARK: - WWSwiftUI.ListDelegate
 extension ViewController: WWSwiftUI.ListDelegate {
     
-    func list<Cell>(_ list: WWSwiftUI.List<Cell>, trailingSwipe type: Int, didSelectedAt index: Int, item: Cell.Item) {
+    func list<Cell>(_ list: WWSwiftUI.List<Cell>, didSelectedAt index: Int, item: Cell.Item) {
+        guard let item = item as? CellViewUI.Item else { return }
+        title = item.title
+    }
+    
+    func list<Cell>(_ list: WWSwiftUI.List<Cell>, swipeAction type: Int, edge: HorizontalEdge, didSelectedAt index: Int, item: Cell.Item) {
         
         guard let item = item as? CellViewUI.Item,
               let type = TrailingSwipeType(rawValue: type)
@@ -62,8 +69,11 @@ extension ViewController: WWSwiftUI.ListDelegate {
         }
         
         switch type {
-        case .delete: items.remove(at: index)
-        case .edit: items[index] = .init(title: "\(Date.now)", detail: item.detail)
+        case .delete:
+            list.removeItem(at: index)
+        case .edit:
+            let editItem = CellViewUI.Item(title: "Edit", detail: "Edit detail - \(item.detail)")
+            list.editItem(editItem as! Cell.Item, at: index)
         }
     }
 }

@@ -21,7 +21,7 @@ public extension WWSwiftUI {
             self.dataSource = dataSource
             self.cellProvider = cellProvider
         }
-        
+                
         public var body: some View {
             
             SwiftUI.List {
@@ -32,9 +32,17 @@ public extension WWSwiftUI {
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
+                        .onTapGesture {
+                            itemSelectedAction(at: index, item: item)
+                        }
+                        ._if(!dataSource.leadingConfigures.isEmpty, transform: { cell in
+                            cell.swipeActions(edge: .leading) {
+                                swipeButtonsMaker(index: index, item: item, configs: dataSource.leadingConfigures, edge: .leading)
+                            }
+                        })
                         ._if(!dataSource.trailingConfigures.isEmpty, transform: { cell in
                             cell.swipeActions(edge: .trailing) {
-                                swipeButtonsMaker(index: index, item: item, configs: dataSource.trailingConfigures)
+                                swipeButtonsMaker(index: index, item: item, configs: dataSource.trailingConfigures, edge: .trailing)
                             }
                         })
                 }
@@ -45,18 +53,28 @@ public extension WWSwiftUI {
     }
 }
 
+// MARK: - 小工具
 private extension WWSwiftUI.ListView {
     
+    /// 側邊選單產生器
+    /// - Parameters:
+    ///   - index: 序號
+    ///   - item: 項目
+    ///   - configs: 設定
+    ///   - edge: 方位
+    /// - Returns: some View
     @ViewBuilder
-    func swipeButtonsMaker(index: Int, item: Cell.Item, configs: [WWSwiftUI.SwipeButtonConfigure]) -> some View {
+    func swipeButtonsMaker(index: Int, item: Cell.Item, configs: [WWSwiftUI.SwipeButtonConfigure], edge: HorizontalEdge) -> some View {
         
         ForEach(configs, id: \.type) { config in
-            
             Button(config.title) {
-                if let parent = dataSource.parent {
-                    parent.delegate?.list(parent, trailingSwipe: config.type, didSelectedAt: index, item: item)
-                }
+                if let parent = dataSource.parent { parent.delegate?.list(parent, swipeAction: config.type, edge: edge, didSelectedAt: index, item: item) }
             }.tint(config.tintColor)
         }
+    }
+    
+    func itemSelectedAction(at index: Int, item: Cell.Item) {
+        guard let parent = dataSource.parent else { return }
+        parent.delegate?.list(parent, didSelectedAt: index, item: item)
     }
 }

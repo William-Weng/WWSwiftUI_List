@@ -30,6 +30,11 @@ public extension WWSwiftUI {
 public extension WWSwiftUI {
     
     protocol ListDelegate: AnyObject {
-        func list<Cell>(_ list: WWSwiftUI.List<Cell>, trailingSwipe type: Int, didSelectedAt index: Int, item: Cell.Item)
+        
+        /// 項目點選功能
+        func list<Cell>(_ list: WWSwiftUI.List<Cell>, didSelectedAt index: Int, item: Cell.Item)
+        
+        /// 側邊滑動選單功能
+        func list<Cell>(_ list: WWSwiftUI.List<Cell>, swipeAction type: Int, edge: HorizontalEdge, didSelectedAt index: Int, item: Cell.Item)
     }
 }
