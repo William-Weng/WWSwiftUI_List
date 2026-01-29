@@ -11,29 +11,35 @@ import WWSwiftUI_MultiDatePicker
 // MARK: - List
 public extension WWSwiftUI {
     
-    class List<Cell: WWSwiftUI.CellRepresentable>: WWSwiftUI.`Protocol` {
+    class List<Cell>: WWSwiftUI.`Protocol` where Cell: CellRepresentable {
         
         public let hostingController: UIHostingController<AnyView>
         
         public var view: UIView { hostingController.view }
         
-        private let dataSource: ListDataSource<Cell.Item>
+        public weak var delegate: (any WWSwiftUI.ListDelegate)?
+        
+        private let dataSource: ListDataSource<Cell>
         private let cellProvider: () -> Cell
         
         /// 初始化
         /// - Parameters:
         ///   - items: [Cell.Item]
+        ///   - trailingConfigures: [SwipeButtonConfigure]
+        ///   - delegate: ListViewDelegate?
         ///   - cellProvider: () -> Cell
-        public init(items: [Cell.Item], cellProvider: @escaping () -> Cell) {
+        public init(items: [Cell.Item], trailingConfigures: [SwipeButtonConfigure], cellProvider: @escaping () -> Cell) {
             
             self.cellProvider = cellProvider
-            self.dataSource = ListDataSource(items: items)
+            self.dataSource = ListDataSource(items: items, trailingConfigures: trailingConfigures)
             
             let rootView = ListView(dataSource: dataSource, cellProvider: cellProvider)
             hostingController = .init(rootView: AnyView(rootView))
+            dataSource.parent = self
         }
         
         deinit {
+            delegate = nil
             removeHostingController()
         }
     }

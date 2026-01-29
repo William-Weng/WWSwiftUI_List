@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8122E2672F29BF4B0037FED2 /* WWSwiftUI_List in Frameworks */ = {isa = PBXBuildFile; productRef = 8122E2662F29BF4B0037FED2 /* WWSwiftUI_List */; };
+		8122E26A2F29D9110037FED2 /* WWSwiftUI_List in Frameworks */ = {isa = PBXBuildFile; productRef = 8122E2692F29D9110037FED2 /* WWSwiftUI_List */; };
 		812CDCF32F28552600858F5B /* WWSwiftUI_List in Frameworks */ = {isa = PBXBuildFile; productRef = 812CDCF22F28552600858F5B /* WWSwiftUI_List */; };
+		81F3DDAC2F2B101D009D8E60 /* WWSwiftUI_List in Frameworks */ = {isa = PBXBuildFile; productRef = 81F3DDAB2F2B101D009D8E60 /* WWSwiftUI_List */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8122E2672F29BF4B0037FED2 /* WWSwiftUI_List in Frameworks */,
+				81F3DDAC2F2B101D009D8E60 /* WWSwiftUI_List in Frameworks */,
+				8122E26A2F29D9110037FED2 /* WWSwiftUI_List in Frameworks */,
 				812CDCF32F28552600858F5B /* WWSwiftUI_List in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,7 +88,8 @@
 			name = Example;
 			packageProductDependencies = (
 				812CDCF22F28552600858F5B /* WWSwiftUI_List */,
-				8122E2662F29BF4B0037FED2 /* WWSwiftUI_List */,
+				8122E2692F29D9110037FED2 /* WWSwiftUI_List */,
+				81F3DDAB2F2B101D009D8E60 /* WWSwiftUI_List */,
 			);
 			productName = Example;
 			productReference = 817EE1FE2EB1FA050036B57C /* Example.app */;
@@ -117,7 +120,7 @@
 			mainGroup = 817EE1F52EB1FA050036B57C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				8122E2652F29BF4B0037FED2 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */,
+				81F3DDAA2F2B101D009D8E60 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 817EE1FF2EB1FA050036B57C /* Products */;
@@ -361,24 +364,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8122E2652F29BF4B0037FED2 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */ = {
+		81F3DDAA2F2B101D009D8E60 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWSwiftUI_List";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.0;
+				minimumVersion = 0.5.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8122E2662F29BF4B0037FED2 /* WWSwiftUI_List */ = {
+		8122E2692F29D9110037FED2 /* WWSwiftUI_List */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8122E2652F29BF4B0037FED2 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */;
 			productName = WWSwiftUI_List;
 		};
 		812CDCF22F28552600858F5B /* WWSwiftUI_List */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WWSwiftUI_List;
+		};
+		81F3DDAB2F2B101D009D8E60 /* WWSwiftUI_List */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81F3DDAA2F2B101D009D8E60 /* XCRemoteSwiftPackageReference "WWSwiftUI_List" */;
 			productName = WWSwiftUI_List;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUICore
 import WWSwiftUI_MultiDatePicker
 
-// MARK: - protocol
+// MARK: - Protocol
 public extension WWSwiftUI {
     
     /// 為了讓Item有唯一值
@@ -23,5 +23,13 @@ public extension WWSwiftUI {
         associatedtype Item: ItemIdentifiable
         
         func cell(for item: Item) -> any View
+    }
+}
+
+// MARK: - Delegate
+public extension WWSwiftUI {
+    
+    protocol ListDelegate: AnyObject {
+        func list<Cell>(_ list: WWSwiftUI.List<Cell>, trailingSwipe type: Int, didSelectedAt index: Int, item: Cell.Item)
     }
 }

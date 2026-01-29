@@ -20,8 +20,8 @@ struct CellItem: WWSwiftUI.ItemIdentifiable {
 // MARK: - UIView => View
 struct CellViewUI: WWSwiftUI.CellRepresentable {
     
-    typealias Item = CellItem
     typealias UIViewType = CellView
+    typealias Item = CellItem
     
     let item: Item
     let useFitSize: Bool
@@ -73,3 +73,4 @@ extension CellViewUI: UIViewRepresentable {
         return useFitSize ? fitSize : nil
     }
 }
+
